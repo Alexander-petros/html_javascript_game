@@ -10,6 +10,14 @@ var protag = {
     exp: 0, lvl: 1
 };
 
+function gainlevel(){
+    protag.lvl += 1;
+    protag.atk += 5;
+    protag.def += 1;
+    protag.mag += 5;
+    protag.exp = (protag.exp - (protag.lvl * 100));
+}
+
 class Enemy {
     constructor (name, hp, atk, def){
         this.name = name;
@@ -34,7 +42,7 @@ function dmg_calc(attack, is_protag){
 }
 
 function def_bonus(defense, attack){
-    let atk = Math.floor(attack * (1-(defense/100)));
+    let atk = Math.floor(attack * (1-(defense/100))); //every point of defense reduces damage by one percent
     if (atk == 0){
         return 1; //a minimum of one damage will always be applied
     }
@@ -43,9 +51,16 @@ function def_bonus(defense, attack){
     }
 }
 
+function protag_level_check() {
+    if (protag.xp >= (protag.level * 100)){
+        gainlevel();
+    }
+}
+
 function protag_reward(){
-    protag.gold += en1.hp * protag.lvl;
-    protag.xp += en1.hp + en1.atk;
+    protag.gold += en1.hp * protag.lvl; //gains more gold per level
+    protag.xp += en1.hp + en1.atk; //gains xp based on enemy strength
+    protag_level_check();
 }
 
 function en_death(){
@@ -56,7 +71,7 @@ function en_death(){
 
 function protag_death(){
     atk.innerhtml = "Continue?";
-    protag.gold = Math.floor(protag.gold / 2);
+    protag.gold = Math.floor(protag.gold / 2); //loses half of gold on death, rounded down
 }
 
 function hp_check(){
@@ -77,6 +92,7 @@ function hp_check(){
     }
 }
 
+//does rudimentary scaling of a new enemy
 function gen_new_enemy(){
     en1.m_hp = en1.m_hp + 10;
     en1.hp = en1.m_hp;
@@ -102,6 +118,7 @@ atk.onclick = function() {
     }
     else if(protag_killed == true){
         protag_heal();
+        reset_display();
     }
     else {
         let p_true_dmg = dmg_calc(protag.atk, true);
@@ -110,7 +127,7 @@ atk.onclick = function() {
         e_true_dmg = def_bonus(protag.def, p_true_dmg);
         en1.hp = en1.hp - p_true_dmg;
         if(hp_check()){
-            protag.hp = protag.hp - e_true_dmg;
+            protag.hp = protag.hp - e_true_dmg; //if the enemy is killed then the player does not get hit
             hp_check();
         }
     }
