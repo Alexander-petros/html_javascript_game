@@ -1,21 +1,49 @@
 var atk = document.getElementById("attack");
 var hp1 = document.getElementById("hp1");
 var hp2 = document.getElementById("hp2");
+var p_skill_status_01 = document.getElementById("player_stats_01");
+var p_skill_status_02 = document.getElementById("player_stats_02");
+var atk_lvl_button = document.getElementById("atk_lvl");
+var def_lvl_button = document.getElementById("def_lvl");
 var enemy_killed = false;
 var protag_killed = false;
+var health_text = "Your hp = ";
 var protag = {
     name: "Hero", m_hp: 100, hp: 100, 
     atk: 20, def: 20,
     mag: 20, gold: 100,
-    exp: 0, lvl: 1
+    exp: 0, lvl: 1,
+    sp: 0
 };
 
 function gainlevel(){
-    protag.lvl += 1;
-    protag.atk += 5;
-    protag.def += 1;
-    protag.mag += 5;
+    def_lvl_button.style.display = "inline";
+    atk_lvl_button.style.display = "inline";
+    protag_heal();
     protag.exp = (protag.exp - (protag.lvl * 100));
+    protag.lvl += 1;
+    protag.sp += 5;
+}
+
+function checksp(){
+    if (protag.sp == 0){
+        def_lvl_button.style.display = "none";
+        atk_lvl_button.style.display = "none";
+    }
+}
+
+def_lvl_button.onclick = function(){
+    protag.def += 1;
+    protag.sp -= 1;
+    checksp();
+    statsupdate();
+}
+
+atk_lvl_button.onclick = function (){
+    protag.atk += 1;
+    protag.sp -= 1;
+    checksp();
+    statsupdate();
 }
 
 class Enemy {
@@ -24,7 +52,7 @@ class Enemy {
         this.m_hp = hp;
         this.hp = hp;
         this.atk = atk;
-        this.def = def
+        this.def = def;
     }
 }
 
@@ -52,14 +80,14 @@ function def_bonus(defense, attack){
 }
 
 function protag_level_check() {
-    if (protag.xp >= (protag.level * 100)){
+    if (protag.exp >= (protag.lvl * 100)){
         gainlevel();
     }
 }
 
 function protag_reward(){
-    protag.gold += en1.hp * protag.lvl; //gains more gold per level
-    protag.xp += en1.hp + en1.atk; //gains xp based on enemy strength
+    protag.gold += (en1.m_hp * protag.lvl); //gains more gold per level
+    protag.exp += (en1.m_hp + en1.atk); //gains xp based on enemy strength
     protag_level_check();
 }
 
@@ -67,17 +95,20 @@ function en_death(){
     atk.innerHTML = "Battle Finished";
     enemy_killed = true;
     protag_reward();
+    statsupdate();
+
 }
 
 function protag_death(){
     atk.innerhtml = "Continue?";
+    protag_killed = true;
     protag.gold = Math.floor(protag.gold / 2); //loses half of gold on death, rounded down
 }
 
 function hp_check(){
     if (en1.hp <= 0){
-        hp1.innerHTML = "Enemy slain";
         en_death();
+        hp1.innerHTML = "Enemy slain";
         return false;
     }
     else if (protag.hp <= 0) {
@@ -87,17 +118,17 @@ function hp_check(){
     }
     else {
         hp1.innerHTML = "Enemy hp = " + en1.hp;
-        hp2.innerHTML = "Your hp = " + protag.hp;
+        hp2.innerHTML = health_text + protag.hp;
         return true;
     }
 }
 
 //does rudimentary scaling of a new enemy
 function gen_new_enemy(){
-    en1.m_hp = en1.m_hp + 10;
+    en1.m_hp = en1.m_hp + 5;
     en1.hp = en1.m_hp;
-    en1.atk = en1.atk + 2;
-    en1.def = en1.def + 1;
+    en1.atk += 2;
+    en1.def += 1;
     enemy_killed = false;
 }
 
@@ -105,10 +136,21 @@ function protag_heal(){
     protag.hp = protag.m_hp;
 }
 
+function statsupdate(){
+    let stat_info = "Atk = " + protag.atk + " ";
+    stat_info += "Def = " + protag.def + " ";
+    p_skill_status_01.innerHTML = stat_info;
+    stat_info = "Gold = " + protag.gold + " ";
+    stat_info += "Exp = " + protag.exp + " ";
+    p_skill_status_02.innerHTML = stat_info;
+    hp2.innerHTML = health_text + protag.hp;
+}
+
 function reset_display(){
     hp1.innerHTML = "Enemy hp = " + en1.hp;
-    hp2.innerHTML = "Your hp = " + protag.hp;
+    hp2.innerHTML = health_text + protag.hp;
     atk.innerHTML = "Attack";
+    statsupdate();
 }
 
 atk.onclick = function() {
@@ -118,6 +160,7 @@ atk.onclick = function() {
     }
     else if(protag_killed == true){
         protag_heal();
+        protag_killed = false;
         reset_display();
     }
     else {
@@ -134,4 +177,5 @@ atk.onclick = function() {
 }
 const en1 = new Enemy("Enemy", 20, 5, 5);
 hp1.innerHTML = "Enemy hp = " + en1.hp;
-hp2.innerHTML = "Your hp = " + protag.hp;
+hp2.innerHTML = health_text + protag.hp;
+statsupdate();
