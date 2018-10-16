@@ -2,15 +2,38 @@
 <html>
 <head>
     <title> Game </title>
+<style>
+div.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(30,30,30,1);
+    z-index: 2;
+}
+p.death_text {
+    opacity: 0;
+    display: inline;
+    color: white;
+    font-size: 30px;
+}
+</style>
 </head>
 <body>
-    <p id = "hp1"> Enemy hp =  </p>
-    <p id = "hp2"> Your hp =  </p>
-    <button type = "button" id = "attack"> Attack </button>
-    <p id = "player_stats_01"> stats here </p>
-    <p id = "player_stats_02"> more stats </p>
-    <button type = "button" id = "atk_lvl" style = "display: none;"> +1 atk </button>
-    <button type = "button" id = "def_lvl" style = "display: none;"> +1 def </button>
-    <script src = "main.js"> </script>
+    <div id = "legacy">
+        <p id = "hp1"> Enemy hp =  </p>
+        <p id = "hp2"> Your hp =  </p>
+        <button type = "button" id = "attack"> Attack </button>
+        <p id = "player_stats_01"> stats here </p>
+        <p id = "player_stats_02"> more stats </p>
+        <button type = "button" id = "atk_lvl" style = "display: none;"> +1 atk </button>
+        <button type = "button" id = "def_lvl" style = "display: none;"> +1 def </button>
+        <script src = "legacy.js"> </script>
+        <script src = "load.js"> </script>
+    </div>
+    <div id = "death_overlay" class = "overlay" style = "display: none; opacity = 0;">
+
+    </div>
 </body>    
 </html>

@@ -9,7 +9,7 @@ var enemy_killed = false;
 var protag_killed = false;
 var health_text = "Your hp = ";
 var protag = {
-    name: "Hero", m_hp: 100, hp: 100, 
+    name: "Hero", m_hp: 20, hp: 20,
     atk: 20, def: 20,
     mag: 20, gold: 100,
     exp: 0, lvl: 1,
@@ -102,7 +102,7 @@ function en_death(){
 function protag_death(){
     atk.innerhtml = "Continue?";
     protag_killed = true;
-    protag.gold = Math.floor(protag.gold / 2); //loses half of gold on death, rounded down
+    update_to_new();
 }
 
 function hp_check(){
@@ -159,9 +159,9 @@ atk.onclick = function() {
         reset_display();
     }
     else if(protag_killed == true){
-        protag_heal();
-        protag_killed = false;
-        reset_display();
+        //protag_heal();
+        //protag_killed = false;
+        //reset_display();
     }
     else {
         let p_true_dmg = dmg_calc(protag.atk, true);
