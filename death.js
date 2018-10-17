@@ -1,7 +1,9 @@
+//Used to start the text when the overlay fades in
 setInterval(function() {
     advance_text();
 }, 2000);
 
+//text advances while displaying on screen
 var text_position = 0;
 function advance_text() {
     if (text_position == 0) {
@@ -9,7 +11,7 @@ function advance_text() {
         text_position++;
     }
     else if (text_position == 1) {
-        fadein_text("You seem to have fallen", true);
+        fadein_text("You seem to have met a terrible fate", true);
         text_position++;
     }
     else if (text_position == 2) {
@@ -34,6 +36,7 @@ function advance_text() {
     }
 }
 
+//fades in text with the context of "word" then if it adds a newline at the end of the line if true
 function fadein_text(word, newline) {
     let node = document.createElement('p');
     node.setAttribute("class", "death_text");
@@ -49,6 +52,6 @@ function fadein_text(word, newline) {
            clearInterval(timer);
        }
        node.style.opacity = op;
-       op += op * 0.15;
+       op += op * 0.15; //fades in multiplicatively and faster than the other overlay
     }, 100);
 }

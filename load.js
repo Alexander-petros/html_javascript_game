@@ -1,7 +1,8 @@
+//starts fadeout on the old ui and fades the death overlay in
 function update_to_new(){
     let legacy_ui = document.getElementById("legacy");
     let death_overlay = document.getElementById("death_overlay");
-    fadeout(legacy_ui);
+    fadeout_oldui(legacy_ui);
     fadein(death_overlay);
 }
 
@@ -11,7 +12,7 @@ function loadscript(n_script){
     document.head.appendChild(scriptElement);
 }
 
-function fadeout(fade_target){
+function fadeout_oldui(fade_target){
     let fade_out = setInterval(function(){
         if (!fade_target.style.opacity) {
             fade_target.style.opacity = 1;
@@ -27,8 +28,10 @@ function fadeout(fade_target){
     }, 200);
 }
 
+
+//Fades the death overlay in while running the script
 function fadein(fade_target){
-    let op = 0.01;
+    let op = 0.01;  //defines the opacity of the object
     fade_target.style.opacity = op;
     fade_target.style.display = "inline";
     let timer = setInterval(function() {
@@ -38,7 +41,7 @@ function fadein(fade_target){
         }
         fade_target.style.opacity = op;
         fade_target.style.filter = 'alpha(opacity=' + op * 10 + ")";
-        op += op * 0.05;
+        op += op * 0.05; //multiplicative looks better than an additive fadein
     }, 20);
 
 }
