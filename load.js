@@ -22,8 +22,9 @@ function fadeout_oldui(fade_target){
         }
         else {
             clearInterval(fade_out);
-            loadscript("battle.js");
+            loadscript("battle.js"); //loads the new ui while the death screen plays
             fade_target.style.display = "none";
+            fade_target.parentNode.removeChild(fade_target); //deletes old ui from the html
         }
     }, 200);
 }
