@@ -49,4 +49,56 @@
     bottom: 0px;
     width: 10%;
     height: 20%;
+}
+
+#combatLog {
+    background-color: lightgrey;
+    position: fixed;
+    right: 0px;
+    top: 0px;
+    width: 10%;
+    height: 80%;
+}
+
+#enemyStat {
+    background-color: grey;
+    position: fixed;
+    right: 0px;
+    bottom: 0px;
+    width: 10%;
+    height: 20%;
+}
+
+#battleScreen {
+    position: absolute;
+    width: 80%;
+    height: 40%;
+    left: 10%;
+    background-color: lightblue;
+}
+
+#playerImg {
+    position: absolute;
+    top: 40%;
+    left: 20%;
+}
+
+#playerImg  img{
+    max-height: 120px;
+    max-width: 120px;
+    width: 100px;
+    height: 100px;
 } 
+
+#enemyImg {
+    position: absolute;
+    top: 40%;
+    left: 70%;
+}
+
+#enemyImg img{
+    max-height: 120px;
+    max-width: 120px;
+    width: 100px;
+    height 100px;
+}
