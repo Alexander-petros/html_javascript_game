@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel = "stylesheet" type = "text/css" href ="battle.css">
-<script src = "tabs.js"> </script>
+    <link rel = "stylesheet" type = "text/css" href ="normalize.css">
+    <link rel = "stylesheet" type = "text/css" href ="battle.css">
+    <script src = "tabs.js"> </script>
 </head>
 <body>
 <!-- Tab links -->
@@ -23,7 +24,7 @@
     <p> sample log </p>
 </div>
 <div id = enemyStat>
-    <p> sample health </p>
+    <p> sample e_stats </p>
 </div>
  
 <!-- Tab content -->
@@ -32,19 +33,30 @@
         <div id = "playerImg">
             <img src = "images/player/player.png"> </img>
         </div>
+        <div id = "playerHp">
+            <p> sample hp </p>
+        </div>
         <div id = "enemyImg">
             <img src = "images/enemy/enemy01.png"> </img>
         </div>
+        <div id = "enemyHp">
+            <p> sample hp </p>
+        </div>
+    </div>
+    <div id = "playerCommands">
+        <p> placeholder commands </p>
+    </div>
+    <div id = "enemyCommands">
+        <p> placeholder e_commands </p>
+    </div>
+    <div id = "items">
+        <p> placeholder items </p>
     </div>
 </div>
 
 <div id="Equip" class="tabcontent">
-  <h3>Paris</h3>
-  <p>Paris is the capital of France.</p> 
 </div>
 <div id="Option" class="tabcontent">
-  <h3>Tokyo</h3>
-  <p>Tokyo is the capital of Japan.</p>
 </div>
 </body>
 </html> 
