@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset = "UTF-8">
     <link rel = "stylesheet" type = "text/css" href ="normalize.css">
     <link rel = "stylesheet" type = "text/css" href ="battle.css">
-    <script src = "tabs.js"> </script>
 </head>
 <body>
 <!-- Tab links -->
@@ -38,16 +38,22 @@
         </div>
         <div id = "enemyImg">
             <img src = "images/enemy/enemy01.png"> </img>
-        </div>
+        </div>  
         <div id = "enemyHp">
             <p> sample hp </p>
         </div>
     </div>
     <div id = "playerCommands">
         <p> placeholder commands </p>
+        <button id = "atk" class = "commands"> Attack </button>
+        <button id = "def" class = "commands"> Defend </button>
+        <button id = "skl" class = "commands"> Skill </button>
+        <br>
+        <button> Ultimate Skill </button>
     </div>
     <div id = "enemyCommands">
         <p> placeholder e_commands </p>
+        <span id = "enemySkill"> 0% charge </span>
     </div>
     <div id = "items">
         <p> placeholder items </p>
@@ -58,5 +64,7 @@
 </div>
 <div id="Option" class="tabcontent">
 </div>
+    <script src = "tabs.js"> </script>
+    <script src = "battle.js"> </script>
 </body>
 </html> 
