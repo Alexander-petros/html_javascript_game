@@ -53,6 +53,10 @@ var skilldatabase = document.createElement('script');
 skilldatabase.src = 'skilldb.js';
 document.head.appendChild(skilldatabase);
 
+var enemydatabase = document.createElement('script');
+enemydatabase.src = 'enemydb.js';
+document.head.appendChild(enemydatabase);
+
 atk.onclick = function(){
     console.log("Attack");
     addCombatLog("Attacked");
