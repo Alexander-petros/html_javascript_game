@@ -47,7 +47,6 @@ var player = {
         this.skl++;
     }
 };
-
 //imports external skill database 
 var skilldatabase = document.createElement('script');
 skilldatabase.src = 'skilldb.js';
@@ -60,6 +59,7 @@ document.head.appendChild(enemydatabase);
 atk.onclick = function(){
     console.log("Attack");
     addCombatLog("Attacked");
+    goblin1.hurt(player.attack());
     player.hurt(10);
 };
 
