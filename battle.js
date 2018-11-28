@@ -4,6 +4,8 @@ var def = document.getElementById('def');
 var skl = document.getElementById('skl');
 var uskl = document.getElementById('uskl');
 var pHp = document.getElementById('playerHpText');
+var eHp = document.getElementById('enemyHpText');
+var enemyNum = 0;
 var player = {
     strength:   10, //used for damage calc
     defense:    10,
@@ -19,21 +21,23 @@ var player = {
         let dmg = Math.ceil(damage * (1 - (0.05 * this.defense / ( 1 + 0.05 * this.defense))));
         //at least one damage per attack
         if (dmg == 0) dmg = 1;
-        console.log(dmg);
+        console.log("Player Damage = " + dmg);
         if (dmg >= this.hp) {
             this.hp = 0;
             pHp.innerHTML = "Dead";
         }
         else{
             this.hp = this.hp - dmg;
+
             pHp.innerHTML = this.hp;
         }
     },
     //removes minimum damage and halves damage taken
+
     defend:     function(damage) {
         let dmg = Math.floor(damage * (1 - (0.05 * this.defense / ( 1 + 0.05 * this.defense))));
         dmg = Math.floor(dmg/2);
-        console.log(dmg);
+        console.log("Player damage = " + dmg);
         if (dmg >= this.hp) {
             pHp.innerHTML = "Dead";
         }
@@ -47,6 +51,7 @@ var player = {
         this.skl++;
     }
 };
+
 //imports external skill database 
 var skilldatabase = document.createElement('script');
 skilldatabase.src = 'skilldb.js';
@@ -59,14 +64,15 @@ document.head.appendChild(enemydatabase);
 atk.onclick = function(){
     console.log("Attack");
     addCombatLog("Attacked");
-    goblin1.hurt(player.attack());
-    player.hurt(10);
+    eIndex[enemyNum].hurt(player.attack());
+    player.hurt(eIndex[enemyNum].attack());
+
 };
 
 def.onclick = function(){
     console.log("Defend");
     addCombatLog("Defended");
-    player.defend(10);
+    player.defend(eIndex[enemyNum].attack());
 };
 
 skl.onclick = function(){
